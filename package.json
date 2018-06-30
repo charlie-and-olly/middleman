@@ -4,7 +4,7 @@
   "description": "A HTTP/S proxy service built on nodejs.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "./node_modules/.bin/jsdoc --configure settings/jsdoc.json",
     "start": "node server.js"
   },
   "repository": {
@@ -19,9 +19,11 @@
   "homepage": "https://github.com/charlie-and-olly/middleman#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "xmldom": "^0.1.27"
   },
   "devDependencies": {
-    "jsdoc": "^3.5.5"
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3"
   }
 }
