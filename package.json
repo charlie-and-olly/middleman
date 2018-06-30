@@ -4,7 +4,7 @@
   "description": "A HTTP/S proxy service built on nodejs.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "./node_modules/.bin/jsdoc --configure settings/jsdoc.json",
     "start": "node server.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
-    "jsdoc": "^3.5.5"
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3"
   }
 }
