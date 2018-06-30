@@ -1,2 +1,2 @@
-# middleman
-A HTTP/S proxy service built on nodejs. 
+# Middleman
+A HTTP/S proxy service built on nodejs.
