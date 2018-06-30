@@ -1,0 +1,27 @@
+{
+  "name": "middleman",
+  "version": "1.0.0",
+  "description": "A HTTP/S proxy service built on nodejs.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlie-and-olly/middleman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charlie-and-olly/middleman/issues"
+  },
+  "homepage": "https://github.com/charlie-and-olly/middleman#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
+  }
+}
