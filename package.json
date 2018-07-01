@@ -23,6 +23,7 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "debug": "^3.1.0",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3"
   }

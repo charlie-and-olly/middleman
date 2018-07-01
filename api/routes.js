@@ -14,7 +14,8 @@ module.exports = (app) => {
   app.route("/")
     .get(renderer.baseUrl)
 
-  app.route("/site/:siteUrl(.+)")
+  app.route("/site/:siteUrl")
     .get(renderer.renderSite)
 
+  app.route("/site/https://")
 }
