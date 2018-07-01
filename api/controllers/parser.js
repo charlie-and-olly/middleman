@@ -2,9 +2,11 @@
 
 const request = require('request')
 const DOMParser = require('xmldom').DOMParser;
+const xmlserializer = require('xmlserializer');
+const debug = require('debug')('app:parser')
 
 /**
- * @fileOverview This file deals with parsing URLs and parsing them into a single, resources-less HTML string.
+ * @file This file deals with parsing URLs and parsing them into a single, resources-less HTML string.
  * @summary Parses URLs to HTML.
  * @author Olly Britton
  * @
@@ -95,6 +97,9 @@ function fixUrl(resource_url, base_url, callback) {
         base_url += "/"
     }
 
+    if (!base_url.startsWith("http")) {
+        base_url = "http://" + base_url
+    }
     let regex = {
         full_url: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\/\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/gm,
         half_full_url: /\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\/\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/gm,
@@ -106,7 +111,7 @@ function fixUrl(resource_url, base_url, callback) {
     if (resource_url.match(regex.full_url)) {
         callback(null, resource_url)
     } else if (resource_url.match(regex.half_full_url)) {
-        resource_url = "http" + resource_url
+        resource_url = "http:" + resource_url
         callback(null, resource_url)
     } else if (resource_url.match(regex.httpless_url)) {
         resource_url = "http://" + resource_url
@@ -124,6 +129,137 @@ function fixUrl(resource_url, base_url, callback) {
 }
 
 /**
+ * @description This function will "flatten" a HTML/DOM object so that all &lt;link&lt; and &lt;style&lt; tags have their resources in the HTML document.
+ * @param {object} document The document to flatten.
+ * @param {url} string The url. This is needed for the `fixUrl` function.
+ * @param {function} callback
+ */
+function flattenDocument(document, url, callback) {
+    let scripts = document.getElementsByTagName("script")
+    let links = document.getElementsByTagName("link")
+
+    var promise = new Promise(function(resolve, reject) {
+        for (var i = 0; i < scripts.length; i++) {
+            let current_script = scripts[i]
+            let current_type = current_script.getAttribute(`type`)
+            let current_url = current_script.getAttribute(`src`)
+
+            if (current_type == "" || current_script == "script/javascript" || current_script == "script/js" || current_script == "application/javascript") {
+                // ^ Checks to see whether the script is a javascript script.
+
+                if (current_url == "") {
+                    // The script tag is source-less, which means that the JavaScript is most likely declared within the tag. Therefore, we don't need to do anything as it's just how we want it.
+                    continue
+                } else {
+                    // The script tag links to external resource.
+                    debug(`Current URL: ${current_url}`)
+                    fixUrl(current_url, url, function(err, res) {
+                        if (err) {
+                            reject(err)
+                        }
+
+                        current_url = res
+
+                        debug(`Fixed URL:   ${current_url}`)
+
+                        getResource(current_url, function(resource_err, resource_res) {
+                            if (resource_err) {
+                                debug(resource_err)
+                                callback(resource_err, null)
+                            }
+
+                            //debug(`Sample of Resource: ${resource_res}`)
+
+                            //debug(`Current Script Tag: ${xmlserializer.serializeToString(current_script)}`)
+
+                            let new_resource = `// ${current_url}\n` + resource_res
+
+                            let parser = new DOMParser()
+                            let new_script = parser.parseFromString(`<script>${new_resource}</script>`, "text/html")
+
+                            //debug(`New Script Tag: ${xmlserializer.serializeToString(new_script)}`)
+                            debug("")
+
+                            current_script.parentNode.replaceChild(new_script, current_script);
+
+                        })
+
+                    })
+
+                }
+
+            } else {
+                // Can't handle this script.
+                continue
+            }
+            debug("")
+        }
+
+        for (var j = 0; j < scripts.length; j++) {
+            let current_link = links[j]
+            let current_type = current_link.getAttribute(`rel`)
+            let current_url = current_link.getAttribute(`href`)
+
+            if (current_type == "" || current_type == "stylesheet" || current_type == "css") {
+                // ^ Checks to see whether the script is a javascript script.
+
+                if (current_url == "") {
+                    // The script tag is source-less, which means that the JavaScript is most likely declared within the tag. Therefore, we don't need to do anything as it's just how we want it.
+                    continue
+                } else {
+                    // The script tag links to external resource.
+                    debug(`Current URL: ${current_url}`)
+                    fixUrl(current_url, url, function(err, res) {
+                        if (err) {
+                            reject(err)
+                        }
+
+                        current_url = res
+
+                        debug(`Fixed URL:   ${current_url}`)
+
+                        getResource(current_url, function(resource_err, resource_res) {
+                            if (resource_err) {
+                                debug(resource_err)
+                                callback(resource_err, null)
+                            }
+
+                            //debug(`Sample of Resource: ${resource_res}`)
+
+                            //debug(`Current Link Tag: ${xmlserializer.serializeToString(current_link)}`)
+
+                            let new_resource = `// ${current_url}\n` + resource_res
+
+                            let parser = new DOMParser()
+                            let new_link = parser.parseFromString(`<style>${new_resource}</style>`, "text/html")
+
+                            //debug(`New Style Tag: ${xmlserializer.serializeToString(new_link)}`)
+                            debug("")
+
+                            current_link.parentNode.replaceChild(new_link, current_link);
+
+                        })
+
+                    })
+
+                }
+
+            } else {
+                // Can't handle this link type.
+                continue
+            }
+
+        }
+
+        resolve(document)
+    }).then(function(result) {
+        callback(null, result)
+    }, function(err) {
+        callback(err, null)
+    })
+}
+
+/**
  * @description The function which returns the HTML file string given a URL.
  * @param {string} url The url which has been requested.
  * @param {function} callback
@@ -135,69 +271,14 @@ function parser(url, callback) {
             callback(err, null)
         }
 
-        let document = res
+        flattenDocument(res, url, function(flat_err, flat_res) {
+            callback(null, xmlserializer.serializeToString(flat_res))
+        })
 
-        let scripts = document.getElementsByTagName("script")
-        let links = document.getElementsByTagName("link")
-
-        /*
-        The problem, so you don't forget:
-        - Somehow, the size of the scripts array keeps on growing and growing.
-        - When it creates the elements, it might not delete the original element.
-        */
-
-        for (var i = 0; i < scripts.length; i++) {
-            console.log(i, scripts.length)
-            let current_script = scripts[i]
-
-            let resource_type = current_script.getAttribute("type")
-            let resource_url;
-
-            if (resource_type == "script/js" || resource_type == "") {
-                fixUrl(current_script.getAttribute("src"), url, function(err, res) {
-                    let resource_url = res
-                    getResource(resource_url, function(err, res) {
-                        let new_script = document.createElement("script")
-                        new_script.innerHTML = res
-
-                        current_script.parentNode.replaceChild(new_script, current_script)
-                    })
-                })
-            } else {
-                // Can't handle resource.
-                continue
-            }
-
-        }
-
-        for (var j = 0; j < links.length; j++) {
-            let current_link = links[j]
-
-            let resource_type = current_link.getAttribute("rel")
-            let resource_url;
-
-            if (resource_type == "stylesheet" || resource_type == "") {
-                fixUrl(current_link.getAttribute("src"), url, function(err, res) {
-                    let resource_url = res
-                    getResource(resource_url, function(err, res) {
-                        let new_link = document.createElement("style")
-                        new_link.innerHTML = res
-
-                        current_link.parentNode.replaceChild(new_link, current_link)
-                    })
-                })
-            } else {
-                // Can't handle resource.
-                continue
-            }
-
-        }
-
-        callback(null, document.outerHTML)
     })
 }
 
-parser("ollybritton.com/", function(err, res) {
+parser("ollybritton.com", function(err, res) {
     console.log(res)
 })
 

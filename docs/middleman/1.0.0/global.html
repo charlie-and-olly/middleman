@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#baseUrl">baseUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#fixUrl">fixUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDocument">getDocument</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getResource">getResource</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parser">parser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#renderSite">renderSite</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#baseUrl">baseUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#fixUrl">fixUrl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#flattenDocument">flattenDocument</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDocument">getDocument</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getResource">getResource</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parser">parser</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#renderSite">renderSite</a></span></li>
 </nav>
 
 <div id="main">
@@ -243,7 +243,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line74">line 74</a>
+        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -402,6 +402,193 @@ fixUrl("script.js", "https://example.com")</code></pre>
 
     
 
+    <h4 class="name" id="flattenDocument"><span class="type-signature"></span>flattenDocument<span class="signature">(document, string, callback)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>This function will &quot;flatten&quot; a HTML/DOM object so that all &lt;link&lt; and &lt;style&lt; tags have their resources in the HTML document.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line138">line 138</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>document</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The document to flatten.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>url</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The url. This is needed for the <code>fixUrl</code> function.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>function</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
     <h4 class="name" id="getDocument"><span class="type-signature"></span>getDocument<span class="signature">(url, callback)</span><span class="type-signature"></span></h4>
 
     
@@ -445,7 +632,7 @@ fixUrl("script.js", "https://example.com")</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line19">line 19</a>
+        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -606,7 +793,7 @@ fixUrl("script.js", "https://example.com")</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line54">line 54</a>
+        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -767,7 +954,7 @@ fixUrl("script.js", "https://example.com")</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line132">line 132</a>
+        <a href="api_controllers_parser.js.html">api/controllers/parser.js</a>, <a href="api_controllers_parser.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -987,7 +1174,7 @@ fixUrl("script.js", "https://example.com")</code></pre>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jun 30 2018 23:03:16 GMT+0100 (BST) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jul 01 2018 10:12:37 GMT+0100 (BST) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

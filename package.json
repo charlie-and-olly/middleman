@@ -20,7 +20,8 @@
   "dependencies": {
     "express": "^4.16.3",
     "request": "^2.87.0",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.1.27",
+    "xmlserializer": "^0.6.1"
   },
   "devDependencies": {
     "jsdoc": "^3.5.5",
