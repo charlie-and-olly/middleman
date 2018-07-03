@@ -14,6 +14,9 @@ const debug = require('debug')
 const settings = require('./settings/settings.json')
 const routing = require('./api/routes.js')
 
+/* Setup commonly used variables: */
+const PORT = process.env.PORT || settings.port || 4000
+
 /* Execute function, sending app parameters */
 routing(app)
 
@@ -22,6 +25,6 @@ app.set('views', './public/pages')
 app.set('view engine', 'pug')
 
 /* Set the app to listen on env.PORT, settings.port or 4000 */
-app.listen(process.env.PORT || settings.port || 4000, console.log(`Listening at port ${process.env.PORT || settings.port || 4000}`))
+app.listen(PORT, console.log(`Listening at port ${PORT}`))
 
 module.exports = app
