@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @todo Fix the fixUrl function and in the process the detectURL function as it incorrectly identifies example.org/script.js as a resource and returns an incorrect answer because of that.
+ * @todo Fix the fixUrl function and in the process the detectURL function as it incorrectly identifies example.org/script.js as a resource and returns an incorrect answer because of that
  */
 
 /**
