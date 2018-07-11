@@ -2,7 +2,9 @@ const test = require('ava')
 
 const {
     detectURL,
-    fixUrl
+    fixUrl,
+    detectProtocol,
+    rectifyDocumentURLs
 } = require("../api/controllers/parser.js")
 
 test("Can detect different URL types", t => {
@@ -15,6 +17,10 @@ test("Can detect different URL types", t => {
     })
 
     detectURL("google.com", (err, res) => {
+        t.is(res, "httpless_url")
+    })
+
+    detectURL("example.org/script.js", (err, res) => {
         t.is(res, "httpless_url")
     })
 
@@ -35,7 +41,7 @@ test("Can detect different URL types", t => {
     })
 })
 
-test("Can fix resource URLs correctly.", t => {
+test("Can fix resource URLs correctly", t => {
     fixUrl("http://example.org/script.js", "http://example.org", (err, res) => {
         t.is(res, "http://example.org/script.js")
     })
@@ -63,4 +69,23 @@ test("Can fix resource URLs correctly.", t => {
             t.fail()
         }
     })
+})
+
+test("Can detect HTTP/HTTPS protocol", t => {
+    t.is(detectProtocol("https://example.org"), "https")
+    t.is(detectProtocol("http://example.org"), "http")
+    t.is(detectProtocol("example.org"), "http")
+})
+
+/**
+ * @todo Get this to work?
+ */
+test("Can rectify URLs within a HTML document", t => {
+    rectifyDocumentURLs(
+        "https://google.com",
+        `<!DOCUMENT><html><body><script src="google.com" /><a href="//oops.com"></a></body></html>`,
+        (err, res) => {
+            t.is(res, `<!DOCUMENT><html><body><script src="http://google.com" /><a href="http://oops.com"></a></body></html>`)
+        }
+    )
 })
