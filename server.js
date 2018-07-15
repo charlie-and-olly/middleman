@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *  @fileOverview This file gets express to listen on the port set in `settings/settings.json` and also sets up other logic.
+ *  @file This file gets express to listen on the port set in `settings/settings.json` and also sets up other logic.
  *  @author Charlie Britton
  */
 

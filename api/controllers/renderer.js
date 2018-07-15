@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @fileOverview This file handles the rendering of the parsed HTML.
+ * @file This file handles the rendering of the parsed HTML.
  * @author Charlie Britton
  */
 

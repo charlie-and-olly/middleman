@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *  @fileOverview This file handles all of the routing in express, calling functions in the modules in `api/controllers/*`.
+ *  @file This file handles all of the routing in express, calling functions in the modules in `api/controllers/*`.
  *  @author Charlie Britton
  */
 
