@@ -4,67 +4,32 @@
   "description": "A HTTP/S proxy service built on nodejs.",
   "main": "server.js",
   "scripts": {
-    "docs": "./node_modules/.bin/jsdoc --configure settings/jsdoc.json",
-    "start": "node server.js",
-    "test": "mocha"
+      "docs": "./node_modules/.bin/jsdoc --configure settings/jsdoc.json",
+      "start": "node server.js",
+      "test": "ava tests/*.js --verbose",
+      "qtest": "ava tests/*.js",
+      "test:watch": "ava tests/*.js --verbose --watch",
+      "ava": "ava --verbose"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/charlie-and-olly/middleman.git"
+      "type": "git",
+      "url": "git+https://github.com/charlie-and-olly/middleman.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/charlie-and-olly/middleman/issues"
+      "url": "https://github.com/charlie-and-olly/middleman/issues"
   },
   "homepage": "https://github.com/charlie-and-olly/middleman#readme",
   "dependencies": {
-    "chai-http": "^4.0.0",
-    "express": "^4.16.3",
-    "request": "^2.87.0",
-    "xmldom": "^0.1.27"
+      "express": "^4.16.3",
+      "request": "^2.87.0",
+      "xmldom": "^0.1.27"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "debug": "^3.1.0",
-    "jsdoc": "^3.5.5",
-    "minami": "^1.2.3",
-    "mocha": "^5.2.0"
+      "ava": "1.0.0-beta.6",
+      "debug": "^3.1.0",
+      "jsdoc": "^3.5.5",
+      "minami": "^1.2.3"
   }
 }
-=======
-    "name": "middleman",
-    "version": "1.0.0",
-    "description": "A HTTP/S proxy service built on nodejs.",
-    "main": "server.js",
-    "scripts": {
-        "docs": "./node_modules/.bin/jsdoc --configure settings/jsdoc.json",
-        "start": "node server.js",
-        "test": "ava tests/*.js --verbose",
-        "qtest": "ava tests/*.js",
-        "test:watch": "ava tests/*.js --verbose --watch",
-        "ava": "ava --verbose"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/charlie-and-olly/middleman.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/charlie-and-olly/middleman/issues"
-    },
-    "homepage": "https://github.com/charlie-and-olly/middleman#readme",
-    "dependencies": {
-        "express": "^4.16.3",
-        "request": "^2.87.0",
-        "xmldom": "^0.1.27"
-    },
-    "devDependencies": {
-        "ava": "1.0.0-beta.6",
-        "debug": "^3.1.0",
-        "jsdoc": "^3.5.5",
-        "minami": "^1.2.3"
-    }
-}
->>>>>>> 39c1072dfd40eaf2670747a6e65ec30c80c04c9d
