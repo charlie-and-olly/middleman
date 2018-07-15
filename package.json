@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "middleman",
   "version": "1.0.0",
   "description": "A HTTP/S proxy service built on nodejs.",
