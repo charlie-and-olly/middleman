@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2018 Charlie and Olly (https://github.com/charlie-and-olly)
+Copyright (c) 2018 [Charlie](http://chza.me/) and [Olly](https://ollybritton.com) (https://github.com/charlie-and-olly)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
